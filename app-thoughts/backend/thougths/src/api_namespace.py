@@ -27,6 +27,8 @@ authentication_parser.add_argument('Authorization', location='headers',
 thought_parser = authentication_parser.copy()
 thought_parser.add_argument('text', type=str, required=True,location='json',
                             help='Text of the thought')
+# thought_parser.add_argument('username', type=str, required=True,location='json',
+#                             help='Username of the thought')
 
 model = {
     'id': fields.Integer(),

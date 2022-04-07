@@ -42,10 +42,9 @@ def test_create_me_thought(client):
 
 
 def test_create_me_unauthorized(client):
-    print(type(client))
     new_thought = {
         'username': fake.name(),
-        'text': fake.text(240),
+        'text': fake.text(240)
     }
 
     response = client.post('/api/me/thoughts/', json=new_thought)
