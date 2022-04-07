@@ -25,7 +25,7 @@ authentication_parser.add_argument('Authorization', location='headers',
                                    help='Bearer Access Token')
 
 thought_parser = authentication_parser.copy()
-thought_parser.add_argument('text', type=str, required=True,
+thought_parser.add_argument('text', type=str, required=True,location='json',
                             help='Text of the thought')
 
 model = {

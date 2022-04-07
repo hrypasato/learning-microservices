@@ -1,3 +1,4 @@
+import json
 import pytest
 import http.client
 from src.app import create_app
@@ -35,7 +36,7 @@ def thought_fixture(client):
             'Authorization': header,
             'Content-Type': 'application/json'
         }
-        response = client.post('/api/me/thoughts/', data=thought,
+        response = client.post('/api/me/thoughts/', json=thought,
                                headers=headers)
         assert http.client.CREATED == response.status_code
         result = response.json

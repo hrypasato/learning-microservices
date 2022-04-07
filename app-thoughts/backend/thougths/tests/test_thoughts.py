@@ -4,6 +4,7 @@ Test the Thoughts operations
 
 Use the thought_fixture to have data to retrieve, it generates three thoughts
 '''
+import json
 from unittest.mock import ANY
 import http.client
 from wsgiref import headers
@@ -24,9 +25,9 @@ def test_create_me_thought(client):
                                                     PRIVATE_KEY)
     
     headers = {
-        'Authorization': header,
+        'Authorization': header
     }
-    response = client.post('/api/me/thoughts/', data=new_thought,
+    response = client.post('/api/me/thoughts/', json=new_thought,
                            headers=headers)
     result = response.json
     assert http.client.CREATED == response.status_code
@@ -41,11 +42,13 @@ def test_create_me_thought(client):
 
 
 def test_create_me_unauthorized(client):
+    print(type(client))
     new_thought = {
         'username': fake.name(),
         'text': fake.text(240),
     }
-    response = client.post('/api/me/thoughts/', data=new_thought)
+
+    response = client.post('/api/me/thoughts/', json=new_thought)
     assert http.client.UNAUTHORIZED == response.status_code
 
 
@@ -62,7 +65,7 @@ def test_list_me_thoughts(client, thought_fixture):
     headers = {
         'Authorization': header,
     }
-    response = client.post('/api/me/thoughts/', data=new_thought,
+    response = client.post('/api/me/thoughts/', json=new_thought,
                            headers=headers)
     result = response.json
 
@@ -121,7 +124,7 @@ def test_list_thoughts_search(client, thought_fixture):
     headers = {
         'Authorization': header,
     }
-    response = client.post('/api/me/thoughts/', data=new_thought,
+    response = client.post('/api/me/thoughts/', json=new_thought,
                            headers=headers)
     assert http.client.CREATED == response.status_code
 
