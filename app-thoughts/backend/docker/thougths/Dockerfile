@@ -23,7 +23,7 @@ RUN pip3 install --upgrade pip
 # Install and compile uwsgi
 RUN pip3 install uwsgi==2.0.18
 # Install other dependencies
-COPY ThoughtsBackend/requirements.txt /opt/
+COPY thougths/requirements.txt /opt/
 RUN pip3 install -r /opt/requirements.txt
 
 ########
@@ -35,8 +35,8 @@ FROM alpine:3.9 AS runtime-image
 RUN apk add --update python3 curl libffi postgresql-libs
 # Copy uWSGI configuration
 RUN mkdir -p /opt/uwsgi
-ADD docker/app/uwsgi.ini /opt/uwsgi/
-ADD docker/app/start_server.sh /opt/uwsgi/
+ADD docker/thougths/uwsgi.ini /opt/uwsgi/
+ADD docker/thougths/start_server.sh /opt/uwsgi/
 
 # Create a user to run the service
 RUN addgroup -S uwsgi
@@ -49,7 +49,7 @@ COPY --chown=uwsgi:uwsgi --from=compile-image /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy the code
-COPY --chown=uwsgi:uwsgi ThoughtsBackend/ /opt/code/
+COPY --chown=uwsgi:uwsgi thougths/ /opt/code/
 
 # Run parameters
 WORKDIR /opt/code
