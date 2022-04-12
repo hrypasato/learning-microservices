@@ -35,12 +35,12 @@ ADD ./docker/db/postgres-setup.sh /opt/code/db/
 RUN  /opt/code/db/postgres-setup.sh
 
 ## Install our code to prepare the DB
-ADD ./thoughts/requirements.txt /opt/code
+ADD ./thougths/requirements.txt /opt/code
 
 RUN pip3 install -r requirements.txt
 
 ## Need to import all the code, due dependencies to initialise the DB
-ADD ./thoughts/ /opt/code/
+ADD ./thougths/ /opt/code/
 # Add all DB commanda
 ADD ./docker/db/* /opt/code/db/
 
